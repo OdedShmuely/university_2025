@@ -5,6 +5,4 @@ def question_1(x, a):
     y_answer = round(numerator/denuminator,2)
     print(y_answer)
 
-question_1(3,3)
-
 

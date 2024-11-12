@@ -19,4 +19,3 @@ def question_3(input_num):
             n+=2
             counter-=2
             print(f'"{space}{asterisk}"')
-question_3(7)

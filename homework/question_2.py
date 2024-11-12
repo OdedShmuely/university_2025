@@ -1,4 +1,7 @@
 # ************************ HOMEWORK 1 QUESTION 2 **************************
+from homework.question_4 import question_4
+
+
 def question_2(tier, yearly_purchases, payment):
     discount = 1
     if tier=='Gold':
@@ -21,5 +24,5 @@ def question_2(tier, yearly_purchases, payment):
     payment = int(payment)
     print(payment)
 
-question_2('Gold',2, 1500)
 
+question_2('Gold', 2, 1500)
