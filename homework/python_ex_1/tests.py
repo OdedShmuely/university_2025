@@ -1,8 +1,7 @@
 import question_1
 import question_2
 import question_3
-import wrong_4
-from homework import question_4
+from homework.python_ex_1 import question_4
 
 
 def test_question_1():
