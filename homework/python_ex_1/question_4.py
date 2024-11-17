@@ -25,5 +25,8 @@ def question_4 (input_list):
     to_divide = 0
     for index in sum_of_bombs:
         to_divide += index
-    average_of_bombs = to_divide/len(sum_of_bombs)
-    print(average_of_bombs)
+    if len(sum_of_bombs) == 0:
+        print(0)
+    else:
+        average_of_bombs = to_divide/len(sum_of_bombs)
+        print(average_of_bombs)

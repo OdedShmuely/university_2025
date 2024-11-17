@@ -1,7 +1,7 @@
 # ************************ HOMEWORK 1 QUESTION 3 **************************
 def question_3(input_num):
     n = input_num
-    if n % 2 == 0:
+    if n % 2 == 0 or n < 1:
         print('not a diamond')
     else:
         counter = 1
