@@ -5,7 +5,7 @@ import q1
 def test_q1():
     pile1 = [3,1,6,12,4,9]  # Change me!
     pile2 = [5,2,11,15,8,10]  # Change me!
-'''
+
     #test flip
     pile3 = q1.flip(pile1,2)
     print(pile3)
@@ -14,7 +14,7 @@ def test_q1():
     #test find_largest_pancake
     print(q1.find_largest_pancake(pile3,4))
     print(q1.find_largest_pancake(pile2,1))
-'''
+
     #test pancake_sort
     print(q1.pancake_sort(pile1))
     print(q1.pancake_sort(pile2))

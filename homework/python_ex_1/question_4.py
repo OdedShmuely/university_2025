@@ -7,7 +7,8 @@ def question_4 (input_list):
             else:
                 index[j] = False
     position_pairs = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]] #help me sort the surrounding of each single cell in the "table"
-    sum_of_bombs = []
+    sum_of_bombs = 0
+    sum_for_avg = 0
     for y in range(len(new_Table)):
         for x in range (len(new_Table[y])): #for each cell in the "table"
             if new_Table[y][x]==False: #only work if the cell is safe
@@ -21,12 +22,10 @@ def question_4 (input_list):
                         continue
                     if new_Table[y+dy][x+dx]:
                         count_bombs_local += 1
-                sum_of_bombs.append(count_bombs_local) #adding to a list the sum of each cell's close cells marked as bombs
-    to_divide = 0
-    for index in sum_of_bombs:
-        to_divide += index
-    if len(sum_of_bombs) == 0:
+                sum_for_avg += count_bombs_local #adding to a list the sum of each cell's close cells marked as bombs
+                sum_of_bombs += 1
+    if sum_of_bombs == 0:
         print(0)
     else:
-        average_of_bombs = to_divide/len(sum_of_bombs)
-        print(average_of_bombs)
+        average = sum_for_avg/sum_of_bombs
+        print(round(average,2))
