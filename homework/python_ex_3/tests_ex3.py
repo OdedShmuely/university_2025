@@ -2,42 +2,42 @@ import HW3
 from python_ex_3.HW3 import preprocess_query
 
 #
-# lst_of_seq = ["Ha_TT:AG,HF.inish", "JT,,,__:::HH...Finish"]
-# for test in lst_of_seq:
-#     seq_without_p = HW3.remove_punctuation(test)
-#     print(seq_without_p)
-# #
-# lst_of_seq2 = ["Ha_TT:AG,HF.inish", "JT,,,__:::HH...Finish", "hello Cats<TillCCCccc", "A gcrTG-G"]
-# for test in lst_of_seq2:
-#     seq_without_inv_char = HW3.remove_invalid_letters(test)
-#     print(seq_without_inv_char)
-# #
-# lst_of_seq3 = ["   hyyrgncj", "jfd djnd jdbmn c sdb sd j f", "       t"]
-# for test in lst_of_seq3:
-#     seq_without_spaces = HW3.remove_spaces(test)
-#     # print(seq_without_spaces)
-# #
-# for test in lst_of_seq3:
-#     seq_upper = HW3.capitalize_letters(test)
-#     print(seq_upper)
-# #
-# lst_of_seq = ['ATGAAATGTACGTG', 'ATGCCGACGTGAT', 'GGATG', 'GGATGAAATAG', 'GACT', 'A']
-# ordered_seq = []
-# for i in range(len(lst_of_seq)):
-#     ordered_seq.append(HW3.proofreading(lst_of_seq[i]))
-# print(ordered_seq)
-# #
-# for i in range(len(ordered_seq)):
-#     ordered_seq[i] = HW3.transcript(ordered_seq[i])
-# print(ordered_seq)
-# #
-# for i in range (len(ordered_seq)):
-#     ordered_seq[i] = HW3.translate(ordered_seq[i])
-# print(ordered_seq)
-# #
-# seq1 = 'Aga---tGACggcrfAlmn: GCATA'
-# seq1 = HW3.preprocessing(seq1)
-# print (seq1)
+lst_of_seq = ["Ha_TT:AG,HF.inish", "JT,,,__:::HH...Finish"]
+for test in lst_of_seq:
+    seq_without_p = HW3.remove_punctuation(test)
+    print(seq_without_p)
+#
+lst_of_seq2 = ["Ha_TT:AG,HF.inish", "JT,,,__:::HH...Finish", "hello Cats<TillCCCccc", "A gcrTG-G"]
+for test in lst_of_seq2:
+    seq_without_inv_char = HW3.remove_invalid_letters(test)
+    print(seq_without_inv_char)
+#
+lst_of_seq3 = ["   hyyrgncj", "jfd djnd jdbmn c sdb sd j f", "       t"]
+for test in lst_of_seq3:
+    seq_without_spaces = HW3.remove_spaces(test)
+    # print(seq_without_spaces)
+#
+for test in lst_of_seq3:
+    seq_upper = HW3.capitalize_letters(test)
+    print(seq_upper)
+#
+lst_of_seq = ['ATGAAATGTACGTG', 'ATGCCGACGTGAT', 'GGATG', 'GGATGAAATAG', 'GACT', 'A']
+ordered_seq = []
+for i in range(len(lst_of_seq)):
+    ordered_seq.append(HW3.proofreading(lst_of_seq[i]))
+print(ordered_seq)
+#
+for i in range(len(ordered_seq)):
+    ordered_seq[i] = HW3.transcript(ordered_seq[i])
+print(ordered_seq)
+#
+for i in range (len(ordered_seq)):
+    ordered_seq[i] = HW3.translate(ordered_seq[i])
+print(ordered_seq)
+#
+seq1 = 'Aga---tGACggcrfAlmn: GCATA'
+seq1 = HW3.preprocessing(seq1)
+print (seq1)
 # dict_for_test = {1:'ATGAAATGTACGTG', 2:'ATGCCGACGTGAT', 3:'GGATG',4:'GGATGAAATAG',5:'GACT'}
 '''
 inverted index question
