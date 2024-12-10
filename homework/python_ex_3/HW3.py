@@ -22,6 +22,9 @@ def codon_translator(codon):
 
 
 ####### Part A #########
+'''
+this function takes the seq (str) and replace the punctuation with spaces
+'''
 def remove_punctuation(seq):
     seq_without_pun = seq
     to_remove = [",","_",".",":"]
@@ -31,14 +34,18 @@ def remove_punctuation(seq):
     return seq_without_pun
 
 
-
+'''
+this function takes the seq (str) and remove the spaces
+'''
 def remove_spaces(seq):
     seq_without_space = seq
     seq_without_space = seq_without_space.replace(" " , "")
     return seq_without_space
 
 
-
+'''
+this function takes the seq (str) and keeps only the valid characters: a,c,t,g,A,C,T,G
+'''
 def remove_invalid_letters(seq):
     char_allowed_in_seq = ['a','t','c','g','A','T','C','G']
     seq_without_inv_char = ''
@@ -49,10 +56,16 @@ def remove_invalid_letters(seq):
             seq_without_inv_char += ' '
     return seq_without_inv_char
 
+'''
+this function takes the seq (str) and make all the string in CAPS
+'''
+def capitalize_letters(seq):
+    return seq.upper()
 
-def capitalize_letters(words_list):
-    return words_list.upper()
-
+'''
+this function takes the seq (str) with only the valid characters in caps and returns a list
+with the functional dna sequence
+'''
 def proofreading(seq):
     if len(seq) < 3: return []
     func_dna = []
@@ -67,7 +80,6 @@ def proofreading(seq):
             continue
     finished = False
     stop_seq = ['TAA', 'TAG', 'TGA']
-    seq_length = seq_to_reduce #length after shortening the beginning
     for i in range (len(seq_to_reduce) // 3):
         first_3_digits = seq_to_reduce[:3]
         func_dna.append(first_3_digits)
@@ -78,22 +90,21 @@ def proofreading(seq):
         if finished: break
         seq_to_reduce = seq_to_reduce[3:]
     if (finished == False and len(func_dna) > 0) or len(func_dna) == 1: func_dna.append('ATT')
-    # elif: first_3_digits not in stop_seq:
-    # len(seq_length) % 3 != 0 and
     return func_dna
 
-def transcript(func_seq): ###delete one option###
-
+'''
+this function receives a functional seq list and replace al the 'T' with a 'U' 
+'''
+def transcript(func_seq):
     for i in range (len(func_seq)):
         func_seq[i] = func_seq[i].replace('T','U')
         continue
     return func_seq
-    # for i in range (len(func_seq)):
-    #     for sub_seq in func_seq:
-    #         for j in range(len(sub_seq)):
-    #             sub_seq[j] = sub_seq[j].replace('T','U')
-    # return func_seq
 
+'''
+the function takes the list of RNA seq and replace the representation of the value with capital
+letters representing the amino acid
+'''
 def translate(rna_seq):
     for i in range (len(rna_seq)-1):
         rna_seq[i] = codon_translator(rna_seq[i])
@@ -101,7 +112,8 @@ def translate(rna_seq):
     rna_seq = rna_seq[:-1]
     return rna_seq
 
-
+'''
+this function combine all the another functions and make a list of amino acids from an unorganized string'''
 def preprocessing(seq):
     seq = (remove_invalid_letters(seq))
     seq = (remove_spaces(seq))
@@ -113,16 +125,19 @@ def preprocessing(seq):
 
 
 ###### Part B #######
+'''
+this function takes a dict with sequences and builds a dictionary that contains the number of amino acids in each sequence
+'''
 def get_sequences_data(sequence_corpus):
-    sequences_data_to_r = sequence_corpus.copy()
-    for i in range (1, len(sequences_data_to_r) + 1):
-        sequences_data_to_r[i] = len(preprocessing(sequences_data_to_r[i]))
+    build_sequences_data = sequence_corpus.copy()
+    for i in range (1, len(build_sequences_data) + 1):
+        build_sequences_data[i] = len(preprocessing(build_sequences_data[i]))
         continue
-    return sequences_data_to_r
+    return build_sequences_data
 
 
 '''
-help me function the create inverted index or add a new processed seq to the letters dict
+the function helps me create inverted index or add a new processed seq to the letters dict
 '''
 def fun_create_inverted_index(letter,letters_dict,i):
     if letter not in letters_dict:
@@ -133,7 +148,11 @@ def fun_create_inverted_index(letter,letters_dict,i):
         letters_dict[letter][i] += 1
     return letters_dict
 
-
+'''
+this function creates a dictionary that contains the letters as keys and the items as dictionaries
+that contains the seq id as their key and the item as the number of times the amino acid with the letter in the
+key appears in the seq - seq ID
+'''
 def create_inverted_index(sequence_corpus):
     letters_dict = {}
     sequence_corpus_copy = sequence_corpus.copy()
@@ -144,7 +163,9 @@ def create_inverted_index(sequence_corpus):
             fun_create_inverted_index(letter,letters_dict, i)
     return letters_dict
 
-
+'''
+this function add new sequence to the inverted index and sequences data dicts
+'''
 def add_to_data(inverted_index, sequences_data, seq_id, seq):
     new_inverted_index = inverted_index.copy()
     new_sequences_data = sequences_data.copy()
@@ -155,7 +176,9 @@ def add_to_data(inverted_index, sequences_data, seq_id, seq):
     new_sequences_data[seq_id] = len(new_seq)
     return new_inverted_index,new_sequences_data
 
-
+'''
+this function removes a sequence from the inverted index and the sequences data
+'''
 def remove_from_data(inverted_index, sequences_data, seq_id):
     lst_remove_keys = []
     for letter in inverted_index:
@@ -169,6 +192,9 @@ def remove_from_data(inverted_index, sequences_data, seq_id):
 
 
 ###### Part C #######
+'''
+this function calculates the aaf-isf value of a seq and returns 0 if the sequence does not exist
+'''
 def calculate_aaf_isf(amino_acid, seq_id, inverted_index, sequences_data):
     if seq_id not in inverted_index[amino_acid]: return float(0)
     aaf_val = math.log(len(sequences_data)/len(inverted_index[amino_acid]),2)
@@ -176,8 +202,9 @@ def calculate_aaf_isf(amino_acid, seq_id, inverted_index, sequences_data):
     aaf_isf_val = round(aaf_val*isf_val,3)
     return aaf_isf_val
 
-
-
+'''
+the function takes the string query input and make it in the form of a tuple
+'''
 def preprocess_query(query):
     lst_of_amino = []
     for letter in query:
@@ -186,6 +213,10 @@ def preprocess_query(query):
     tuple_to_return = tuple(lst_of_amino)
     return tuple_to_return
 
+'''
+the function gets a query and returns a dictionary with seq id as keys
+and aaf_isf values of the query letters as items
+'''
 def get_scores_of_relevance_sequences(query, inverted_index, sequences_data):
     dict_to_return = {}
     for letter in query:
@@ -236,6 +267,10 @@ def valid_amino_acid (inverted_index):
         else: return amino_acid
 
 ###### Part D #######
+'''
+this function combines all of the functions above to manipulate the inverted index and sequences data
+according to the input we get from the user
+'''
 def menu(sequence_corpus):
     inverted_index = create_inverted_index(sequence_corpus)
     sequences_data = get_sequences_data(sequence_corpus)
