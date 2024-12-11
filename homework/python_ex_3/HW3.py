@@ -288,10 +288,14 @@ def menu(sequence_corpus):
             while continue_function_choice1:
                 query_choice = input('Choose the type of results you would like to retrieve:\n\t(A) All relevant sequences.\n\t(B) The most relevant sequence.\n\t(C) Back to the main menu.\nYour choice: ')
                 if query_choice == 'A':
-                    print(get_scores_of_relevance_sequences(query_value,inverted_index,sequences_data))
+                    relevant_score = get_scores_of_relevance_sequences(query_value,inverted_index,sequences_data)
+                    if len(relevant_score) != 0:
+                        for key in relevant_score:
+                            print(f'{key} : {relevant_score[key]}')
                 elif query_choice == 'B':
                     highest_score_seq_id, highest_score = highest_score_seq(query_value, inverted_index, sequences_data)
-                    print(f'The most relevant sequence is {highest_score_seq_id} with a score of {highest_score}')
+                    if highest_score_seq_id is not None:
+                        print(f'The most relevant sequence is {highest_score_seq_id} with a score of {highest_score}')
                 elif query_choice == 'C':
                     break
                 else:
@@ -312,3 +316,4 @@ def menu(sequence_corpus):
             inverted_index, sequences_data = remove_from_data(inverted_index,sequences_data,seq_id_to_del)
             print(f'Sequence {seq_id_to_del} was successfully deleted.')
         elif choice == 5: continue_function = False
+menu(seq_corpus)
