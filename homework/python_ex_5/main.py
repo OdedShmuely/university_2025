@@ -11,6 +11,7 @@ from LeastPatienceCustomerServingStrategy import LeastPatienceCustomerServingStr
 from Game import Game
 from RandomOrdersStrategy import RandomOrdersStrategy
 from FixedOrdersStrategy import FixedOrdersStrategy
+from python_ex_5.ArrivalTimeServingStrategy import ArrivalTimeServingStrategy
 
 INGREDIENTS_PRICES = { 'green salad': 3,
                        'falafel': 5,
@@ -40,8 +41,8 @@ lst_orders = [
 ]
 
 
-#order_strategy = FixedOrdersStrategy(lst_orders)
+# order_strategy = FixedOrdersStrategy(lst_orders)
 order_strategy = RandomOrdersStrategy(3, 2, list(INGREDIENTS_PRICES.keys()), -1)
-serving_strategy = LeastPatienceCustomerServingStrategy()
+serving_strategy = ArrivalTimeServingStrategy()
 g = Game(order_strategy, serving_strategy, INGREDIENTS_PRICES)
 g.run()

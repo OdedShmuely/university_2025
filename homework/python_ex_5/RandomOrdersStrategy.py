@@ -31,8 +31,8 @@ class RandomOrdersStrategy(OrderStrategy):
         lst_of_orders_rnd = []
         for _ in range(orders_quantity):
             self.current += 1
-            customers_mood = choice(Mood.__subclasses__())
-            customers_personality = choice(Personality.__subclasses__())
+            customers_mood = choice(Mood.__subclasses__())()
+            customers_personality = choice(Personality.__subclasses__())()
             customer_name = self.current
             ingredients_num = randint(1,self.max_ingredients)
             dish_ingredients = choices(self.ingredients, k=ingredients_num)

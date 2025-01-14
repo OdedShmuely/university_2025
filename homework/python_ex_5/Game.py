@@ -36,9 +36,10 @@ class Game:
             self.ingredient_dictionary[str(i)] = ingredient_lst[i]
         try:
             while self.__lives > 0:
-                orders_lst_to_dict = next(falafelia.strategy)
-                for order in orders_lst_to_dict: #give
-                    falafelia.order(order[0],order[1])
+                if len(falafelia.get_orders()) == 0:
+                    orders_lst_to_dict = next(falafelia.strategy)
+                    for order in orders_lst_to_dict:
+                        falafelia.order(order[0],order[1])
                 next_desired_order_id = self.serving_strategy.select_next_order(falafelia.get_orders())
                 desired_order = falafelia.get_order(next_desired_order_id)
                 desired_dish = desired_order[1]
@@ -69,16 +70,21 @@ class Game:
                     falafelia.remove_order(next_desired_order_id)
                 except NoSuchOrderException as e:
                     print(e)
+
                 except NotCustomerDishException as e:
                     print(f'Failed to serve a Dish to customer\n{e}')
-                for i in falafelia.get_orders():
-                    customer = falafelia.get_orders()[i][0]
+
+                orders_dict_to_update = dict.copy(falafelia.get_orders())
+                for key in orders_dict_to_update:
+                    customer = falafelia.get_orders()[key][0]
                     customer.update()
                     if customer.get_patience()<=0:
-                        falafelia.remove_order(i)
+                        falafelia.remove_order(key)
                         self.__lives -= 1
         except OrderOutOfBoundsException:
-            print('no more orders')
+            print('No more orders')
+        except StopIteration:
+            print('No more orders')
         print(f'Game Over\nScores: {falafelia.get_earning()}')
 
 

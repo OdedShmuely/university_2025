@@ -21,7 +21,8 @@ class Customer:
             self.arrive_time = arrive_time
 
     def get_mood(self):
-        return self.__mood
+        mood_to_return = self.__mood
+        return mood_to_return
 
     def get_waiting_time(self, current_time=None):
         """
@@ -43,12 +44,12 @@ class Customer:
         """
         if waiting_time is None:
             waiting_time = self.get_waiting_time()
-        self.__patience -= self.__mood.get_patience_factor(waiting_time)
+        self.__patience = self.initial_patience - self.get_mood().get_patience_factor(waiting_time)
         self.__mood = self.personality.adjust_mood(self.__mood,waiting_time)
 
 
     def __repr__(self):
-        categories = [f'name: {self.name}',f'mood: {self.__mood.__name__}',f'personality: {self.personality.__name__}',f'patience: {self.__patience}']
+        categories = [f'name: {self.name}',f'mood: {self.__mood}',f'personality: {self.personality}',f'patience: {self.__patience}']
         counter = [len(counter) for counter in categories]
         max_len = max(counter)
         str_to_print = f'{(max_len + 4) * "*"}\n'
@@ -57,9 +58,9 @@ class Customer:
         str_to_print += f'{(max_len + 4) * "*"}'
         return str_to_print
 
-
-my_customer = Customer('oded',Calm,TypeA)
+'''
+my_customer = Customer('oded',Calm(),TypeA())
 print(my_customer)
 # time.sleep(1)
-my_customer.update(my_customer.get_waiting_time())
-print(my_customer)
+my_customer.update()
+'''
