@@ -63,18 +63,37 @@ class Assignment4:
 
         max_samples = 10000
         cur_samples = 0
+        n_chebyshev = min(3 * (d + 1), 100)
+
+        for x in [a,b]:
+            try:
+                y = f(x)
+                x_pylist.append(x)
+                y_pylist.append(y)
+                cur_samples += 1
+            except:
+                pass
+        for i in range(n_chebyshev):
+            if time.time() - start_time > (maxtime - safety_time):
+                break
+
+            alpha = (2 * i + 1) * np.pi / (2* n_chebyshev)
+            x = (a + b) / 2 + (a + b) /2 * np.cos(alpha)
+
+            try:
+                y = f(x)
+                x_pylist.append(x)
+                y_pylist.append(y)
+                cur_samples +=1
+            except:
+                pass
 
         while True:
             current_time = time.time()
             if (current_time - start_time) > (maxtime - safety_time) or cur_samples >= max_samples:
                 break
 
-            if cur_samples == 0:
-                x = a
-            elif cur_samples == 1:
-                x = b
-            else:
-                x = random.uniform(a, b)
+            x = random.uniform(a, b)
 
             try:
                 y = f(x)
@@ -136,15 +155,15 @@ class Assignment4:
                 v[[i,pivot_idx]] = v[[pivot_idx,i]]
 
             pivot = M[i,i]
-            if pivot < 1e-11:
+            if abs(pivot) < 1e-11:
                 continue
 
             M[i] = M[i] / pivot
             v[i] = v[i] / pivot
 
             for j in range(i+1,n):
-                divisor = M[i,j]
-                M[j] -= divisor * v[i]
+                divisor = M[j,i]
+                M[j] -= divisor * M[i]
                 v[j] -= divisor * v[i]
         result = np.zeros(n)
         for i in range(n-1,-1,-1):
